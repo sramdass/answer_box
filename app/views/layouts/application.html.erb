@@ -10,6 +10,14 @@
   </head>
 
   <body>
+    <% if current_user %>
+      <div>
+        Hello <%= current_user.email %>
+      </div>
+      <%= link_to destroy_user_session_path, :method => :delete, :class => 'logout_link' do %>
+        <span class="fa fa-power-off"> logout </span>
+      <% end %>
+    <% end %>
     <%= yield %>
   </body>
 </html>
