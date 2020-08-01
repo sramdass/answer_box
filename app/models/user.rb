@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   module Providers
     GOOGLE = 'google_oauth2'
   end
+  has_many :room_messages, dependent: :destroy
 
   devise :database_authenticatable,
          :registerable,
@@ -19,4 +20,10 @@ class User < ActiveRecord::Base
         user.password = Devise.friendly_token[0,20]
       end
   end
+
+def gravatar_url
+  gravatar_id = Digest::MD5::hexdigest(email).downcase
+  "https://gravatar.com/avatar/#{gravatar_id}.png"
+end
+
 end
